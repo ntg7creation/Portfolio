@@ -1,0 +1,29 @@
+{
+  "AccessLevel": 1,
+  "Date_of_arrival": "2020-07-12T15:00:00.000Z",
+  "Date_of_birth": "1970-12-31T00:00:00.000Z",
+  "Description": "I am a test crew member",
+  "DietaryNeeds": "vegan",
+  "Gender": "Female",
+  "Name": "Test Crew",
+  "Origin": "Test Land",
+  "PreferredTaskType": ["Cleaning"],
+  "Specialty": "Testing",
+  "SpokenLanguages": ["English", "Test"],
+  "StudyField": "Testing",
+  "Symbol": {
+    "option1": 7,
+    "option2": 1,
+    "option3": 1
+  },
+  "UsualStudyTime": {
+    "Monday": "YYYY-MM-DD 00:00:01",
+    "Tuesday": "YYYY-MM-DD 00:00:01",
+    "Wednesday": "YYYY-MM-DD 00:00:01",
+    "Thursday": "YYYY-MM-DD 00:00:01",
+    "Friday": "YYYY-MM-DD 00:00:01",
+    "Saturday": "YYYY-MM-DD 00:00:01",
+    "Sunday": "YYYY-MM-DD 00:00:01"
+  }
+}
+

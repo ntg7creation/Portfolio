@@ -1,0 +1,79 @@
+	rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+  
+  
+  
+  	function whatIsCaptainAccessLevel()
+    {
+    	return 3;
+    }
+  
+    match /Crew/{userId} {
+    
+    	allow write : if checkAccessLevel(request.auth,whatIsCaptainAccessLevel()); 
+    
+    	allow read : if  checkAccessLevel(request.auth , 1) // anyone can read data
+      // allow read: if request.auth != null && request.auth.uid == userId;
+      
+      // Allow write only if the request is attempting to write to specific fields
+      allow update: if request.auth != null && request.auth.uid == userId &&
+        !request.resource.data.diff(resource.data).affectedKeys().has(["AccessLevel"]);
+    }
+  
+     match /Tasks/{taskname} {
+     //checkAccessLevel3 = Captain
+     	allow read, write : if checkAccessLevel(request.auth,whatIsCaptainAccessLevel());
+     
+     // allow Crew to Read Tasks
+      allow read: if checkAccessLevel(request.auth,resource.data.requiredAccessLevel)
+      function getTaskData() {
+        return get(/databases/$(database)/documents/Tasks/$(taskname)).data;
+      }
+     // Allow reading from the SubTasks subcollection
+        match /Task_Instance/{subTaskId} {
+        
+        	allow read, write : if checkAccessLevel(request.auth,whatIsCaptainAccessLevel());
+        
+        
+          allow read: 
+          if checkAccessLevel(
+            request.auth, 
+            getTaskData().requiredAccessLevel
+          );
+          
+         	// Allow write only if the 'AssignedCrew' array is being added to, not modified or removed
+      		allow update: if true
+                        && checkAccessLevel(request.auth,getTaskData().requiredAccessLevel) // 1) Allow if the authenticated user has the required access level
+                        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['AssignedCrew'])  // 2) Check only 'AssignedCrew' and 'AssignedCrewName' are being updated
+                        && request.resource.data.diff(resource.data).affectedKeys().hasAll(['AssignedCrew'])  // 2.1) Ensure both 'AssignedCrew' and 'AssignedCrewName' are being updated
+                        && getTaskData().NumberOfSlots >= request.resource.data.AssignedCrew.size() // 4) Ensure 'AssignedCrew' does not exceed 'NumberOfSlots'
+                        && request.resource.data.AssignedCrew.hasAll(resource.data.AssignedCrew) // 5) Prevent removal or modification of existing 'AssignedCrew'elements
+
+              // // Allow remove if the only removed data is the same user from AssignedCrew
+          allow update: if true
+          							&& checkAccessLevel(request.auth,getTaskData().requiredAccessLevel)// 1) Allow if the authenticated user has the required access level
+          							&& request.resource.data.diff(resource.data).affectedKeys().hasOnly(["AssignedCrew"]) // 2) Check that only the 'AssignedCrew' field is being modified
+          							&& request.resource.data.AssignedCrew.size() !=  getTaskData().NumberOfSlots - 1  // 3) Ensure the 'AssignedCrew' array has one less element than before
+          							&& resource.data.AssignedCrew.removeAll(request.resource.data.AssignedCrew)[0] == request.auth.uid   // 4) Ensure the authenticated user's ID is the one being removed
+   
+        
+        }
+      
+    
+                   // && request.resource.data.AssignedCrew.removeAll(resource.data.AssignedCrew)[0] == request.auth.uid // 6) Ensure only the authenticated user can remove their own ID
+
+      
+ }
+    
+    function checkAccessLevel(auth, rAccessLevel)
+    {
+    	return auth.uid != null
+            && rAccessLevel <= get(/databases/$(database)/documents/Crew/$(auth.uid)).data.AccessLevel
+      ;
+    }
+  }
+}
+
+

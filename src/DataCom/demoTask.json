@@ -1,0 +1,12 @@
+{
+  "requiredAccessLevel": 3,
+  "AssignedCrew": ["B5bHqQwH6vKNQJ3FkQMk"],
+  "Description": "do some gardening",
+  "EstimatedTimeToComplete": 120,
+  "Location": { "latitude": 49.4972470480214, "longitude": -123.77559872090089 },
+  "NumberOfSlots": 1,
+  "RepeatableWeek": [false, true, false, false, false, false, false],
+  "Type": "Gardening" ,
+  "TimeStart" : "Fri Jul 12 2024 00:00:00 GMT-0700 (Pacific Daylight Time)"
+}
+

@@ -1,0 +1,40 @@
+{
+  "name": "Natai Portfolio",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "deploy": "vercel --prod",
+    "link": "vercel link"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "4.3",
+    "vite": "^5.3.3",
+    "vite-plugin-restart": "^0.4.1"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
+    "@mui/joy": "^5.0.0-beta.48",
+    "@mui/material": "^5.16.4",
+    "@mui/x-data-grid": "^7.11.0",
+    "@mui/x-date-pickers": "^7.11.0",
+    "@pmndrs/assets": "^1.6.0",
+    "@react-three/drei": "9.108",
+    "@react-three/fiber": "^8.16.8",
+    "@vitejs/plugin-react": "^4.3.1",
+    "dayjs": "^1.11.12",
+    "firebase": "^10.12.3",
+    "gsap": "^3.12.5",
+    "leva": "^0.9.35",
+    "lil-gui": "^0.19.2",
+    "react": "^18.3",
+    "react-dom": "18.3",
+    "react-scripts": "5.0",
+    "rrule": "^2.8.1",
+    "three": "^0.167.1",
+    "vercel": "^34.3.0"
+  }
+}
