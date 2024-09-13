@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import { GolobalGUI } from "./GUI";
+// import { GolobalGUI } from "./GUI";
 // constents
 const PI = Math.PI;
 const scale = 5;
@@ -18,7 +18,7 @@ export const axisHelper = new THREE.AxesHelper(1);
 axisHelper.scale.set(R * scale, R * scale, R * scale);
 
 // innitialise gui
-const gui = GolobalGUI;
+// const gui = GolobalGUI;
 const debugObject = {};
 debugObject.proximity = proximity;
 debugObject.resolution = 300;
@@ -60,6 +60,26 @@ export class torofluxCurve extends THREE.Curve {
   }
 }
 
+export function createToroflux( scale = 5 , resolution = 300, segments = 6, radius = 0.2, wireframe = false) {
+
+  const geometry = new THREE.TubeGeometry(
+    new torofluxCurve(scale),
+    resolution,
+    radius,
+    segments,
+    false
+  );
+  const material = new THREE.MeshPhysicalMaterial({
+    color: 0xf0f0f0, // Base color of aluminum (grayish)
+    metalness: 1.0, // Fully metallic
+    roughness: 0.4, // Medium roughness for a slightly polished look
+    clearcoat: 1.0, // High clearcoat to simulate the glossy finish of aluminum
+    clearcoatRoughness: 0.1, // Clearcoat roughness, can be adjusted for desired effect
+    wireframe: wireframe,
+  });
+  return new THREE.Mesh(geometry, material);
+}
+
 // create mesh
 let path = new torofluxCurve(scale);
 debugObject.geometry = new THREE.TubeGeometry(
@@ -79,70 +99,70 @@ const material = new THREE.MeshPhysicalMaterial({
   wireframe: false,
 });
 
-const wireframeMaterial = new THREE.MeshBasicMaterial({
-  color: 0xf0f0f0, // Base color of aluminum (grayish)
-  wireframe: true,
-});
+// const wireframeMaterial = new THREE.MeshBasicMaterial({
+//   color: 0xf0f0f0, // Base color of aluminum (grayish)
+//   wireframe: true,
+// });
 
 torofluxmesh = new THREE.Mesh(debugObject.geometry, material);
-function update() {
-  torofluxmesh.geometry.dispose();
-  path = new torofluxCurve(scale);
-  torofluxmesh.geometry = new THREE.TubeGeometry(
-    path,
-    debugObject.resolution,
-    debugObject.radius,
-    debugObject.segments,
-    false
-  );
-}
+// function update() {
+//   torofluxmesh.geometry.dispose();
+//   path = new torofluxCurve(scale);
+//   torofluxmesh.geometry = new THREE.TubeGeometry(
+//     path,
+//     debugObject.resolution,
+//     debugObject.radius,
+//     debugObject.segments,
+//     false
+//   );
+// }
 
-//changes
-gui
-  .add(debugObject, "proximity")
-  .min(0)
-  .max(1)
-  .step(0.05)
-  .onChange(() => {
-    update();
-  });
+// //changes
+// gui
+//   .add(debugObject, "proximity")
+//   .min(0)
+//   .max(1)
+//   .step(0.05)
+//   .onChange(() => {
+//     update();
+//   });
 
-gui
-  .add(debugObject, "resolution")
-  .min(50)
-  .max(3000)
-  .step(1)
-  .onChange(() => {
-    update();
-  });
+// gui
+//   .add(debugObject, "resolution")
+//   .min(50)
+//   .max(3000)
+//   .step(1)
+//   .onChange(() => {
+//     update();
+//   });
 
-gui
-  .add(debugObject, "segments")
-  .min(2)
-  .max(20)
-  .step(1)
-  .onChange(() => {
-    update();
-  });
+// gui
+//   .add(debugObject, "segments")
+//   .min(2)
+//   .max(20)
+//   .step(1)
+//   .onChange(() => {
+//     update();
+//   });
 
-gui
-  .add(debugObject, "radius")
-  .min(0.1)
-  .max(0.9)
-  .step(0.05)
-  .onChange(() => {
-    update();
-  });
+// gui
+//   .add(debugObject, "radius")
+//   .min(0.1)
+//   .max(0.9)
+//   .step(0.05)
+//   .onChange(() => {
+//     update();
+//   });
 
-gui
-  .add(debugObject, "Rings")
-  .min(2)
-  .max(13)
-  .step(1)
-  .onChange(() => {
-    update();
-  });
+// gui
+//   .add(debugObject, "Rings")
+//   .min(2)
+//   .max(13)
+//   .step(1)
+//   .onChange(() => {
+//     update();
+//   });
 
-gui.add(debugObject, "wireframe").onChange(() => {
-  torofluxmesh.material = debugObject.wireframe ? wireframeMaterial : material;
-});
+// gui.add(debugObject, "wireframe").onChange(() => {
+//   torofluxmesh.material = debugObject.wireframe ? wireframeMaterial : material;
+// });

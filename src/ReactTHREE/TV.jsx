@@ -17,39 +17,6 @@ const films = {
     'For Bigger Joy Rides': 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4'
 }
 
-// export default function App() {
-//     return (
-//         <>
-//             <Scene />
-//             <ambientLight intensity={0.5} />
-//             <directionalLight position={[10, 10, 5]} intensity={1} castShadow />
-//         </>
-//     )
-// }
-
-// function Scene() {
-//     const [stream, setStream] = useState(new MediaStream())
-
-//     const { url } = useControls({
-//         url: {
-//             value: films['Sintel'],
-//             options: films
-//         },
-//         'getDisplayMedia (only new-window)': button(async (get) => {
-//             const mediaStream = await navigator.mediaDevices.getDisplayMedia({ video: true })
-//             setStream(mediaStream)
-//         })
-//     })
-
-//     return (
-//         <>
-
-//             <group rotation-y={DEG2RAD * 40}>
-//                 <Screen src={url} />
-//             </group>
-//         </>
-//     )
-// }
 
 export function Screen({ src, width = 2.4, ratio = 16 / 9 }) {
     const [video, setVideo] = useState()

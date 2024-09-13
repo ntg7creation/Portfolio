@@ -1,0 +1,21 @@
+
+Google Naming Conventions
+
+1. Functions
+- Naming Convention: camelCase
+- Example: calculateTotal, getUserData
+- Description: Function names should be written in camelCase, starting with a lowercase letter and capitalizing the first letter of each subsequent concatenated word.
+
+2. Classes
+- Naming Convention: PascalCase
+- Example: UserAccount, DataProcessor
+- Description: Class names should be written in PascalCase (also known as UpperCamelCase), where the first letter of each word is capitalized.
+
+3. Files
+- Naming Convention: snake_case
+- Example: user_data_handler.py, data_processor.cpp
+- Description: File names should use snake_case, which consists of lowercase words separated by underscores.
+
+Additional Naming Guidelines
+- Constants: Use UPPER_SNAKE_CASE, e.g., MAX_CONNECTIONS, DEFAULT_TIMEOUT.
+- Variables: Use camelCase similar to functions, e.g., userName, currentIndex.

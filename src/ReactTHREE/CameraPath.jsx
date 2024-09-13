@@ -66,9 +66,9 @@ export function CameraPath({ points, hight, sensitivity = 1 }) {
         const rightVector = new THREE.Vector3().crossVectors(state.camera.up, cameraDirection).normalize();
 
 
-        // Rotate the camera around the world Y-axis
+        // Rotate the camera around the world 
         state.camera.rotateOnWorldAxis(worldYAxisY, tiltAmountX);
-        state.camera.rotateOnAxis(rightVector, tiltAmountY);
+        // state.camera.rotateOnWorldAxis(rightVector, tiltAmountY);
     })
     return null;
 }
