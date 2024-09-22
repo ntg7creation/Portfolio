@@ -1,12 +1,7 @@
 import * as THREE from 'three'
-import { useState, Suspense, useMemo } from 'react'
+import { useState, Suspense, useMemo, useRef, useEffect } from 'react'
 import { useVideoTexture, Center } from '@react-three/drei'
-import { useControls, button } from 'leva'
-// import { rotate } from 'three/webgpu'
-
-
-
-const { DEG2RAD } = THREE.MathUtils
+// import { RectAreaLights } from '@react-three/drei'
 
 // List of films from https://gist.github.com/jsturgis/3b19447b304616f18657
 const films = {
@@ -18,37 +13,37 @@ const films = {
 }
 
 
-export function Screen({ src, width = 2.4, ratio = 16 / 9 }) {
-    const [video, setVideo] = useState()
+export function Screen({ src = films.Sintel, width = 2.4, ratio = 16 / 9 }) {
 
-    const radius = 4
-
-    const r = useMemo(() => (video ? video.videoWidth / video.videoHeight : ratio), [video, ratio])
 
     return (<>
 
         <mesh scale={[width, width, 1]} rotation-y={Math.PI}
         >
-            <planeGeometry args={[width, width / r]} />
+
+
+            <planeGeometry args={[width, width / ratio]} />
             <Suspense fallback={<meshStandardMaterial side={THREE.DoubleSide} wireframe />}>
-                <VideoMaterial src={src} setVideo={setVideo} />
+                <VideoMaterial src={src} />
+
             </Suspense>
         </mesh >
+        <rectAreaLight position={[0, 0, 1]} intensity={1} color={0xffffff} />
     </>
 
     )
 }
 
-function VideoMaterial({ src, setVideo }) {
+function VideoMaterial({ src, setVideo, opacity = 1 }) {
     const texture = useVideoTexture(src)
     texture.wrapS = THREE.RepeatWrapping
     texture.wrapT = THREE.RepeatWrapping
     texture.repeat.x = -1
     texture.offset.x = 1
 
-    setVideo?.(texture.image)
+    // setVideo?.(texture.image)
 
-    return <meshStandardMaterial side={THREE.DoubleSide} map={texture} toneMapped={false} transparent opacity={0.9} />
+    return <meshStandardMaterial map={texture} side={THREE.DoubleSide} toneMapped={true} opacity={opacity} />
 }
 
 

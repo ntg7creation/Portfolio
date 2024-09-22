@@ -3,7 +3,8 @@ import { useLoader } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import { useMemo } from "react";
 
-const pathTexture = "../public/textures/waternormals.jpg";
+const pathTexture = "/textures/grey-wall-wallpaper-tile-concrete.jpg";
+
 export function Path({ points, color = 0xff0000 }) {
   const edgePoints = points;
   const texture = useLoader(THREE.TextureLoader, pathTexture);

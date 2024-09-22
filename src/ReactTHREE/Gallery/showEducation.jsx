@@ -4,9 +4,9 @@ import { Text } from '@react-three/drei';
 import * as THREE from 'three';
 
 export const EducationPanel = () => {
-    const educationTexture = useLoader(THREE.TextureLoader, "../public/textures/education.png");
-    const techTexture = useLoader(THREE.TextureLoader, "../public/textures/techIcons.png");
-    const workTexture = useLoader(THREE.TextureLoader, "../public/textures/workexperience.png");
+    const educationTexture = useLoader(THREE.TextureLoader, "/textures/education.png");
+    const techTexture = useLoader(THREE.TextureLoader, "/textures/techIcons.png");
+    const workTexture = useLoader(THREE.TextureLoader, "/textures/workexperience.png");
     const meshRef1 = useRef();
     const meshRef2 = useRef();
     const meshRef3 = useRef();//invis panel
@@ -58,12 +58,7 @@ export const EducationPanel = () => {
             }
         });
 
-        // if (currnetPanel > 0) {
-        //     if (meshRef.current.position.y > -2) {
-        //         meshRef.current.position.y -= 0.05;
-        //     }
-        // }
-        // // Move new mesh into view
+
 
 
     });
@@ -81,7 +76,15 @@ export const EducationPanel = () => {
 
     return (
         <>
-            <group position={[0, 0, -0.5]} onClick={handleClick}>
+            <group position={[0, 0, -0.5]} onClick={handleClick}
+                onPointerOver={(e) => {
+                    document.body.style.cursor = 'pointer';
+
+                }}
+                onPointerOut={(e) => {
+                    document.body.style.cursor = 'auto';
+
+                }}>
                 {/* Current Plane */}
                 <mesh ref={meshRef1} position={[0, 0, 0]}  >
                     <planeGeometry args={[2, 2]} />

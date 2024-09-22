@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(document.querySelector('#root'))
 root.render(
     <StrictMode>
 
-        <MusicPlayer />
+        {/* <MusicPlayer /> */}
 
         <Canvas
             camera={{
@@ -19,6 +19,7 @@ root.render(
                 near: 0.1,
                 far: 200,
                 position: [- 4, 3, 6],
+
             }}
         >
 

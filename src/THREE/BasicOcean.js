@@ -3,8 +3,8 @@ import { useFrame, extend, useLoader } from "@react-three/fiber";
 import { Water } from "three/examples/jsm/objects/Water";
 import * as THREE from "three"; // Import everything from THREE
 
-const waterNormals = "../public/textures/waternormals.jpg"; // Path to your water normals texture
-const waterTextrue = "../public/textures/src/textures/rough-sea-1024x1024.png";
+const waterNormals = "/textures/waternormals.jpg"; // Path to your water normals texture
+// const waterTextrue = "/textures/rough-sea-1024x1024.png";
 extend({ Water });
 
 export function WaterComponent() {
@@ -12,6 +12,7 @@ export function WaterComponent() {
 
   // Use THREE.TextureLoader to load the texture
   const waterNormalsTexture = useLoader(THREE.TextureLoader, waterNormals);
+  // console.log(waterNormalsTexture);
   waterNormalsTexture.wrapS = THREE.RepeatWrapping;
   waterNormalsTexture.wrapT = THREE.RepeatWrapping;
   const waterOptions = useMemo(
@@ -29,7 +30,7 @@ export function WaterComponent() {
   );
 
   useFrame((state, delta) => {
-    ref.current.material.uniforms.time.value += delta / 2;
+    ref.current.material.uniforms.time.value += delta * 0.25;
   });
 
   return (
@@ -37,7 +38,7 @@ export function WaterComponent() {
       ref={ref}
       args={[new THREE.PlaneGeometry(100, 100), waterOptions]}
       rotation-x={-Math.PI / 2}
-      position={[0, -4, 0]}
+      position={[0, -2, 0]}
     />
   );
 }

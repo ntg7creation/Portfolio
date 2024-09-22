@@ -1,11 +1,14 @@
 import react from "@vitejs/plugin-react";
 import { transformWithEsbuild } from "vite";
 import restart from "vite-plugin-restart";
+import glsl from "vite-plugin-glsl";
+
 
 export default {
   root: "src/",
   publicDir: "../public/",
   plugins: [
+    glsl(),
     // Restart server on static/public file change
     restart({ restart: ["../public/**"] }),
 
